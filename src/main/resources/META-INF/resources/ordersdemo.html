@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="orders.css">
+    <title>Serverless Workflow - Kogito - Orders Approval Demo</title>
+</head>
+
+<body>
+    <h2 class="text-center">
+        Orders Approval Demo
+    </h2><br>
+    <div class="jumbotron toppart">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="text-center">Workflow Instances</h3>
+                    <div class="form-group">
+                        <table id="workflowinstancestable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Instance ID</th>
+                                    <th scope="col">State</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <h3 class="text-center">Human Decisions Instances</h3>
+                    <div class="form-group">
+                        <table id="humandecisioninstancestable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Workflow ID</th>
+                                    <th scope="col">Instance ID</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">State</th>
+                                    <th scope="col">Source</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="jumbotron bottompart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-1">
+                    <h3 class="text-center">Create New Order</h3>
+                    <form id="newOrderForm">
+                        <div class="form-group">
+                            <label for="byer">Byer Name</label>
+                            <input type="text" name="byer" id="byer" placeholder="Byer Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipto">Ship To</label>
+                            <input type="text" name="shipto" id="shipto" placeholder="Ship To" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipment">Shipment Type</label>
+                            <select name="shipment" id="shipment" class="form-control">
+                                <option value="">--Select Shipment Type--</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Fast">Fast</option>
+                                <option value="1Day">Overnight </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="product">Product</label>
+                            <select name="product" id="product" class="form-control">
+                                <option value="">--Select Product--</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Desktop">Desktop</option>
+                                <option value="PS4">PS4</option>
+                                <option value="XBox">XBox</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost">Cost</label>
+                            <input type="number" name="cost" id="cost" placeholder="Cost" class="form-control">
+                        </div>
+                        </form>
+                        <div class="form-group">
+                            <button class="btn btn-info" id="creteorder">Create</button>
+                        </div>
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <h3 class="text-center">Manager Approvals</h3>
+                    <div class="form-group">
+                        <table id="managerapprovaltable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Task Id</th>
+                                    <th scope="col">Cost</th>
+                                    <th scope="col">Decision </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <br/>
+                    <h3 class="text-center">Order Decisions</h3>
+                    <div class="form-group">
+                        <table id="orderdecisionstable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Workflow ID</th>
+                                    <th scope="col">Decision</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="serializetojson.js"></script>
+    <script src="orders.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+{
+  "id": "ordersworkflow",
+  "name": "Orders Workflow",
+  "version": "1.0",
+  "events": [
+    {
+      "name": "NewOrderEvent",
+      "source": "neworder",
+      "type": "kafka"
+    },
+    {
+      "name": "ApprovalDecisionEvent",
+      "source": "out-approvaldecision",
+      "type": "kafka"
+    }
+  ],
+  "functions": [
+    {
+      "name": "AutoAproveOrderFunction",
+      "type": "rule",
+      "metadata": {
+        "ruleflowgroup": "neworder"
+      }
+    },
+    {
+      "name": "OrderManagerApprovalFunction",
+      "type": "decision",
+      "metadata": {
+        "taskname": "managerApproval",
+        "actorid": "managers",
+        "groupid": "managers"
+      }
+    }
+  ],
+  "states": [
+    {
+      "name": "HandleNewOrder",
+      "type": "event",
+      "start": {
+        "kind": "default"
+      },
+      "eventsActions": [
+        {
+          "eventRefs": [
+            "NewOrderEvent"
+          ],
+          "actions": [
+            {
+              "functionRef": {
+                "refName": "AutoAproveOrderFunction"
+              }
+            }
+          ]
+        }
+      ],
+      "transition": {
+        "nextState": "CheckIfNeedManagerApproval"
+      }
+    },
+    {
+      "name": "CheckIfNeedManagerApproval",
+      "type": "switch",
+      "dataConditions": [
+        {
+          "path": "$.decision",
+          "value": "Approved",
+          "operator": "equals",
+          "transition": {
+            "nextState": "OrderAutoApproved"
+          }
+        },
+        {
+          "path": "$.decision",
+          "value": "NeedManagerApproval",
+          "operator": "equals",
+          "transition": {
+            "nextState": "OrderManagerApproval"
+          }
+        }
+      ],
+      "default": {
+        "nextState": "OrderManagerApproval"
+      }
+    },
+    {
+      "name": "OrderAutoApproved",
+      "type":"inject",
+      "data": {
+        "finalDecision": "Approved"
+      },
+      "end":{
+        "kind":"event",
+        "produceEvent": {
+          "eventRef": "ApprovalDecisionEvent"
+        }
+      }
+    },
+    {
+      "name": "OrderManagerApproval",
+      "type": "operation",
+      "actionMode": "sequential",
+      "actions": [
+        {
+            "name": "managerAprovalAction",
+            "functionRef": {
+              "refName": "OrderManagerApprovalFunction"
+            }
+        }
+      ],
+      "end":{
+        "kind":"event",
+        "produceEvent": {
+          "eventRef": "ApprovalDecisionEvent"
+        }
+      }
+    }
+  ]
+}
