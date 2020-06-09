@@ -11,10 +11,10 @@
         <version>8.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>serverless-workflow-kogito-demo</artifactId>
+    <artifactId>serverless-workflow-kogito-orders-demo</artifactId>
 
-    <name>Serverless Workflow Kogito Demo</name>
-    <description>Serverless Workflow Kogito Demo</description>
+    <name>Serverless Workflow Kogito Orders Demo</name>
+    <description>Serverless Workflow Kogito Orders Demo</description>
 
     <dependencyManagement>
         <dependencies>
