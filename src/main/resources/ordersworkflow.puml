@@ -15,12 +15,12 @@ HandleNewOrder --> CheckIfNeedManagerApproval
 CheckIfNeedManagerApproval: Type: Switch State
 CheckIfNeedManagerApproval: Conditions: 2
 CheckIfNeedManagerApproval: Default: OrderManagerApproval
-CheckIfNeedManagerApproval --> OrderAutoApproved
-CheckIfNeedManagerApproval --> OrderManagerApproval
+CheckIfNeedManagerApproval --> OrderAutoApproved : Auto approved
+CheckIfNeedManagerApproval --> OrderManagerApproval : Manager needed
 
 OrderAutoApproved : Type: Inject State
 OrderAutoApproved : ProduceEvent: ApprovalDecisionEvent
-OrderManagerApproval : Operation State
+OrderManagerApproval : Type: Operation State
 OrderManagerApproval : Functions: OrderManagerApprovalFunction
 OrderManagerApproval : ProduceEvent: ApprovalDecisionEvent
 
