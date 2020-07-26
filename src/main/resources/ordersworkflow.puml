@@ -1,0 +1,29 @@
+@startuml
+title Orders Workflow
+skinparam backgroundColor White
+skinparam state {
+  StartColor Green
+  EndColor Red
+}
+[*] --> HandleNewOrder
+HandleNewOrder : Type: Event State
+HandleNewOrder : Event: NewOrderEvent
+HandleNewOrder : Functions: AutoAproveOrderFunction
+
+
+HandleNewOrder --> CheckIfNeedManagerApproval
+CheckIfNeedManagerApproval: Type: Switch State
+CheckIfNeedManagerApproval: Conditions: 2
+CheckIfNeedManagerApproval: Default: OrderManagerApproval
+CheckIfNeedManagerApproval --> OrderAutoApproved
+CheckIfNeedManagerApproval --> OrderManagerApproval
+
+OrderAutoApproved : Type: Inject State
+OrderAutoApproved : ProduceEvent: ApprovalDecisionEvent
+OrderManagerApproval : Operation State
+OrderManagerApproval : Functions: OrderManagerApprovalFunction
+OrderManagerApproval : ProduceEvent: ApprovalDecisionEvent
+
+OrderAutoApproved --> [*]
+OrderManagerApproval --> [*]
+@enduml
