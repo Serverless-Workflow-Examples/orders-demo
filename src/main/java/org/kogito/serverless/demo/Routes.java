@@ -22,7 +22,7 @@ public class Routes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file-watch:///Users/tsurdilovic/devel/youtubelive2020/serverless-workflow-kogito-demo/orders?events=CREATE&antInclude=**/*.json")
+        from("file-watch:///Users/tsurdilovic/devel/kubecon2020/orders-demo/neworders?events=CREATE&antInclude=**/*.json")
                 .process(new CEProcessor())
                 .log("event to send: ${body}")
                 .to("kafka:neworder?brokers=localhost:9092");
