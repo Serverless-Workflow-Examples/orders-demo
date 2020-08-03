@@ -1,16 +1,17 @@
 apiVersion: app.kiegroup.org/v1alpha1
-kind: KogitoApp
+kind: KogitoBuild
 metadata:
   name: orders-demo
 spec:
-  enableEvents: true
-  build:
-    #envs:
-    # envs can be used to set variables during build
-    #- name: MY_CUSTOM_ENV
-    #  value: "my value"
-    gitSource:
-      contextDir: orders-demo
-      uri: 'https://github.com/Serverless-Workflow-Kogito'
-    # set your maven nexus repository to speed up the build time
-    #mavenMirrorURL:
+  type: RemoteSource
+  gitSource:
+    uri: "https://github.com/Serverless-Workflow-Kogito/orders-demo"
+  #mavenMirrorURL: ""
+---
+apiVersion: app.kiegroup.org/v1alpha1
+kind: KogitoRuntime
+metadata:
+  name: orders-demo
+spec:
+  kafka:
+    useKogitoInfra: true

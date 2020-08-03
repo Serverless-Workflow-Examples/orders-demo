@@ -15,6 +15,9 @@
 
     <name>Serverless Workflow Kogito Orders Demo</name>
     <description>Serverless Workflow Kogito Orders Demo</description>
+    <properties>
+        <version.camel.quarkus>1.0.0-CR3</version.camel.quarkus>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -66,32 +69,32 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
-            <version>1.0.0-M7</version>
+            <version>${version.camel.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-platform-http</artifactId>
-            <version>1.0.0-M7</version>
+            <version>${version.camel.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-kafka</artifactId>
-            <version>1.0.0-M7</version>
+            <version>${version.camel.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson</artifactId>
-            <version>1.0.0-M7</version>
+            <version>${version.camel.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-file</artifactId>
-            <version>1.0.0-M7</version>
+            <artifactId>camel-quarkus-telegram</artifactId>
+            <version>${version.camel.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-file-watch</artifactId>
-            <version>1.0.0-M7</version>
+            <artifactId>camel-quarkus-bindy</artifactId>
+            <version>${version.camel.quarkus}</version>
         </dependency>
 
         <!-- test depends -->
