@@ -29,17 +29,17 @@ import java.util.UUID;
 public class CEProcessor implements Processor {
 
     public void process(Exchange exchange) throws Exception {
-        String message = exchange.getIn().getBody(String.class);
+        Order message = exchange.getIn().getBody(Order.class);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode orderMessageObj = mapper.readTree(message);
+        //ObjectMapper mapper = new ObjectMapper();
+        //String orderMessageObj = mapper.writeValueAsString(message);
 
-        CloudEventImpl<JsonNode> orderCE =
-                CloudEventBuilder.<JsonNode>builder()
+        CloudEventImpl<Order> orderCE =
+                CloudEventBuilder.<Order>builder()
                         .withId(UUID.randomUUID().toString())
                         .withType("newOrderEvent")
                         .withSource(URI.create("http://localhost:8080"))
-                        .withData(orderMessageObj)
+                        .withData(message)
                         .build();
         exchange.getIn().setBody(Json.encode(orderCE));
     }
