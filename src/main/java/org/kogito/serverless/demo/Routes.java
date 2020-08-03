@@ -34,7 +34,7 @@ public class Routes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         final DataFormat bindy = new BindyCsvDataFormat(Order.class);
-        fromF("telegram:bots?authorizationToken=%s", token)
+        fromF("telegram:bots?authorizationToken=1355018939:%s", token)
                 .process(new TelegramOrderProcessor())
                 .unmarshal(bindy)
                 .process(new CEProcessor())
