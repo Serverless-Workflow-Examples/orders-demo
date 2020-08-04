@@ -16,6 +16,7 @@
 package org.kogito.serverless.demo;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
@@ -28,15 +29,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/usertasks")
 public class UserTaskEventsResource {
-    @Inject
+//    @Inject
+//    @Channel("kogito-usertaskinstances-events")
+//    Publisher<JsonNode> userTasksInstancesEvents;
+
     @Channel("kogito-usertaskinstances-events")
-    Publisher<JsonNode> userTasksInstancesEvents;
+    Multi<JsonNode> userTasksInstancesEvents;
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType("application/json")
-    public Publisher<JsonNode> streamUserTaskEvents() {
+    @SseElementType(MediaType.APPLICATION_JSON)
+    public Multi<JsonNode> streamUserTaskEvents() {
         return userTasksInstancesEvents;
     }
 }

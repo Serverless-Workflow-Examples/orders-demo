@@ -16,6 +16,7 @@
 package org.kogito.serverless.demo;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
@@ -26,15 +27,19 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/finalorders")
 public class ApprovalDecisionResource {
-    @Inject
-    @Channel("stream-approvaldecision")
-    Publisher<JsonNode> approvalDecisionEvents;
+//    @Inject
+//    @Channel("stream-approvaldecision")
+//    Publisher<JsonNode> approvalDecisionEvents;
+
+    @Channel("approvaldecision")
+    Multi<JsonNode> approvalDecisionEvents;
+
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType("application/json")
-    public Publisher<JsonNode> streamFinalOrderDecision() {
+    @SseElementType(MediaType.APPLICATION_JSON)
+    public Multi<JsonNode> streamFinalOrderDecision() {
         return approvalDecisionEvents;
     }
 }
