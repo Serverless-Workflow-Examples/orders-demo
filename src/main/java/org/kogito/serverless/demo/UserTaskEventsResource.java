@@ -16,7 +16,6 @@
 package org.kogito.serverless.demo;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.smallrye.reactive.messaging.annotations.Broadcast;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
@@ -37,7 +36,6 @@ public class UserTaskEventsResource {
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType("application/json")
-    @Broadcast
     public Publisher<JsonNode> streamUserTaskEvents() {
         return userTasksInstancesEvents;
     }
