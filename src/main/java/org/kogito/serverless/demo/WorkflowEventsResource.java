@@ -18,6 +18,8 @@ package org.kogito.serverless.demo;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.streams.operators.PublisherBuilder;
+import org.eclipse.microprofile.reactive.streams.operators.ReactiveStreams;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
@@ -36,9 +38,9 @@ public class WorkflowEventsResource {
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.SERVER_SENT_EVENTS)
+    @SseElementType(MediaType.APPLICATION_JSON)
     public Publisher<JsonNode> streamWorkflowEvents() {
-        return Multi.createFrom().publisher(workflowInstancesEvents);
+        return ReactiveStreams.fromPublisher(workflowInstancesEvents).buildRs();
     }
 
 }
