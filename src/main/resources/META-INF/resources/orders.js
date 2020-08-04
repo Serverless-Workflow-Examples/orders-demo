@@ -78,7 +78,7 @@ function addToHumanDecisionsTable(eventdata) {
 
 $("#creteorder").on('click', function () {
      $.ajax({
-          url: 'http://localhost:8080/neworder',
+          url: '/neworder',
           type: "POST",
           dataType: 'json',
           headers: {
@@ -136,7 +136,7 @@ $('#managerapprovaltable tbody').on('click', '#managerDenyButton', function () {
 function doManagerApproval(processinstance, taskinstance, managerDecision) {
      var managerDecisionData = {"decision" : managerDecision};
      $.ajax({
-          url: 'http://localhost:8080/ordersworkflow/' + processinstance + '/managerApproval/' + taskinstance + '?user=managers&group=managers',
+          url: '/ordersworkflow/' + processinstance + '/managerApproval/' + taskinstance + '?user=managers&group=managers',
           type: "POST",
           dataType: 'json',
           headers: {
