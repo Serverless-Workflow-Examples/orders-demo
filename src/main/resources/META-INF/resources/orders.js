@@ -1,10 +1,41 @@
-var workflowsSource = new EventSource("/workflows/stream");
-workflowsSource.onmessage = function (event) {
-     addToWorkflowsTable(event.data);
-};
-workflowsSource.onerror = function(err) {
-  workflowsSource.close();
-};
+var workflowsSource;
+var humandecisionsSource;
+var orderDecisionSource;
+
+$( window ).on( "load", function() {
+    workflowsSource = new EventSource("/workflows/stream");
+    workflowsSource.onmessage = function (event) {
+         addToWorkflowsTable(event.data);
+    };
+    workflowsSource.onerror = function(err) {
+      workflowsSource.close();
+    };
+
+    humandecisionsSource = new EventSource("/usertasks/stream");
+    humandecisionsSource.onmessage = function (event) {
+         addToHumanDecisionsTable(event.data);
+
+
+         var usertaskData = JSON.parse(event.data);
+         if (usertaskData.kogitoUserTaskinstanceState == 'Ready') {
+              addToManagerApprovalTable(event.data);
+         }
+
+    };
+
+    humandecisionsSource.onerror = function(err) {
+      humandecisionsSource.close();
+    };
+
+    orderDecisionSource = new EventSource("/finalorders/stream");
+    orderDecisionSource.onmessage = function (event) {
+         addToOrderDecisionsTable(event.data);
+    };
+
+    orderDecisionSource.onerror = function(err) {
+      orderDecisionSource.close();
+    };
+});
 
 var workflowsTable = $('#workflowinstancestable').DataTable({ searching: false, paging: false, info: false });
 var counter = 1;
@@ -42,22 +73,6 @@ function addToWorkflowsTable(eventdata) {
 
      counter++;
 }
-
-var humandecisionsSource = new EventSource("/usertasks/stream");
-humandecisionsSource.onmessage = function (event) {
-     addToHumanDecisionsTable(event.data);
-
-
-     var usertaskData = JSON.parse(event.data);
-     if (usertaskData.kogitoUserTaskinstanceState == 'Ready') {
-          addToManagerApprovalTable(event.data);
-     }
-
-};
-
-humandecisionsSource.onerror = function(err) {
-  humandecisionsSource.close();
-};
 
 var humandecisionsTable = $('#humandecisioninstancestable').DataTable({ searching: false, paging: false, info: false });
 var counterb = 1;
@@ -174,12 +189,3 @@ function addToOrderDecisionsTable(eventdata) {
 
      counterd++;
 }
-
-var orderDecisionSource = new EventSource("/finalorders/stream");
-orderDecisionSource.onmessage = function (event) {
-     addToOrderDecisionsTable(event.data);
-};
-
-orderDecisionSource.onerror = function(err) {
-  orderDecisionSource.close();
-};
