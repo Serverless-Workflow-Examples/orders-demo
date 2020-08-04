@@ -2,6 +2,10 @@ var workflowsSource = new EventSource("/workflows/stream");
 workflowsSource.onmessage = function (event) {
      addToWorkflowsTable(event.data);
 };
+workflowsSource.onerror = function(err) {
+  workflowsSource.close();
+};
+
 var workflowsTable = $('#workflowinstancestable').DataTable({ searching: false, paging: false, info: false });
 var counter = 1;
 
@@ -50,6 +54,11 @@ humandecisionsSource.onmessage = function (event) {
      }
 
 };
+
+humandecisionsSource.onerror = function(err) {
+  humandecisionsSource.close();
+};
+
 var humandecisionsTable = $('#humandecisioninstancestable').DataTable({ searching: false, paging: false, info: false });
 var counterb = 1;
 
@@ -169,4 +178,8 @@ function addToOrderDecisionsTable(eventdata) {
 var orderDecisionSource = new EventSource("/finalorders/stream");
 orderDecisionSource.onmessage = function (event) {
      addToOrderDecisionsTable(event.data);
+};
+
+orderDecisionSource.onerror = function(err) {
+  orderDecisionSource.close();
 };

@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.cloudevents.json.Json;
 import io.cloudevents.v1.CloudEventBuilder;
 import io.cloudevents.v1.CloudEventImpl;
+import io.smallrye.reactive.messaging.annotations.Broadcast;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 
@@ -35,6 +36,7 @@ import java.util.UUID;
 public class NewOrderResource {
 
     @Inject
+    @Broadcast
     @Channel("out-neworder")
     Emitter<String> newOrderEmitter;
 

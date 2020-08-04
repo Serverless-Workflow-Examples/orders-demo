@@ -15,30 +15,18 @@
  */
 package org.kogito.serverless.demo;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
+import javax.enterprise.context.ApplicationScoped;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.jboss.resteasy.annotations.SseElementType;
-import org.reactivestreams.Publisher;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+@ApplicationScoped
+public class ApprovalDecisionListener {
 
-@Path("/usertasks")
-public class UserTaskEventsResource {
-    @Inject
-    @Channel("kogito-usertaskinstances-events")
-    Publisher<JsonNode> userTasksInstancesEvents;
-
-    @GET
-    @Path("/stream")
-    @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType("application/json")
+    @Incoming("approvaldecision")
+    @Outgoing("stream-approvaldecision")
     @Broadcast
-    public Publisher<JsonNode> streamUserTaskEvents() {
-        return userTasksInstancesEvents;
+    public String process(String approvalDecision) {
+        return approvalDecision;
     }
 }
