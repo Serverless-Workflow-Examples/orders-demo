@@ -38,7 +38,7 @@ public class ApprovalDecisionResource {
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.APPLICATION_JSON)
+    @SseElementType(MediaType.SERVER_SENT_EVENTS)
     public Publisher<JsonNode> streamFinalOrderDecision() {
         return Multi.createFrom().publisher(approvalDecisionEvents);
     }

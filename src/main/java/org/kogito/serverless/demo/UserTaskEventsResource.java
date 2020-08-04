@@ -39,7 +39,7 @@ public class UserTaskEventsResource {
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.APPLICATION_JSON)
+    @SseElementType(MediaType.SERVER_SENT_EVENTS)
     public Publisher<JsonNode> streamUserTaskEvents() {
         return Multi.createFrom().publisher(userTasksInstancesEvents);
     }

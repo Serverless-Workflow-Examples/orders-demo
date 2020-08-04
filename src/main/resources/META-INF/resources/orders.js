@@ -7,9 +7,6 @@ $( window ).on( "load", function() {
     workflowsSource.onmessage = function (event) {
          addToWorkflowsTable(event.data);
     };
-    workflowsSource.onerror = function(err) {
-      workflowsSource.close();
-    };
 
     humandecisionsSource = new EventSource("/usertasks/stream");
     humandecisionsSource.onmessage = function (event) {
@@ -23,18 +20,16 @@ $( window ).on( "load", function() {
 
     };
 
-    humandecisionsSource.onerror = function(err) {
-      humandecisionsSource.close();
-    };
-
     orderDecisionSource = new EventSource("/finalorders/stream");
     orderDecisionSource.onmessage = function (event) {
          addToOrderDecisionsTable(event.data);
     };
+});
 
-    orderDecisionSource.onerror = function(err) {
-      orderDecisionSource.close();
-    };
+$(window).on('beforeunload', function() {
+    workflowsSource.close();
+    humandecisionsSource.close();
+    orderDecisionSource.close();
 });
 
 var workflowsTable = $('#workflowinstancestable').DataTable({ searching: false, paging: false, info: false });
