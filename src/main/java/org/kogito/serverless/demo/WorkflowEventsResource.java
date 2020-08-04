@@ -29,19 +29,16 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/workflows")
 public class WorkflowEventsResource {
-//    @Inject
-//    @Channel("kogito-processinstances-events")
-//    Publisher<JsonNode> workflowInstancesEvents;
-
+    @Inject
     @Channel("kogito-processinstances-events")
-    Multi<JsonNode> workflowInstancesEvents;
+    Publisher<JsonNode> workflowInstancesEvents;
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
-    public Multi<JsonNode> streamWorkflowEvents() {
-        return workflowInstancesEvents;
+    public Publisher<JsonNode> streamWorkflowEvents() {
+        return Multi.createFrom().publisher(workflowInstancesEvents);
     }
 
 }

@@ -23,10 +23,10 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 @ApplicationScoped
 public class ApprovalDecisionListener {
 
-//    @Incoming("approvaldecision")
-//    @Outgoing("stream-approvaldecision")
-//    @Broadcast
-//    public String process(String approvalDecision) {
-//        return approvalDecision;
-//    }
+    @Incoming("approvaldecision")
+    @Outgoing("stream-approvaldecision")
+    @Broadcast
+    public String process(String approvalDecision) {
+        return approvalDecision;
+    }
 }

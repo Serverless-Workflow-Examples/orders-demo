@@ -29,18 +29,18 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/usertasks")
 public class UserTaskEventsResource {
-//    @Inject
-//    @Channel("kogito-usertaskinstances-events")
-//    Publisher<JsonNode> userTasksInstancesEvents;
-
+    @Inject
     @Channel("kogito-usertaskinstances-events")
-    Multi<JsonNode> userTasksInstancesEvents;
+    Publisher<JsonNode> userTasksInstancesEvents;
+
+//    @Channel("kogito-usertaskinstances-events")
+//    Multi<JsonNode> userTasksInstancesEvents;
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
-    public Multi<JsonNode> streamUserTaskEvents() {
-        return userTasksInstancesEvents;
+    public Publisher<JsonNode> streamUserTaskEvents() {
+        return Multi.createFrom().publisher(userTasksInstancesEvents);
     }
 }

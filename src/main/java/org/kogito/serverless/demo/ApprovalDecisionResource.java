@@ -27,19 +27,19 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/finalorders")
 public class ApprovalDecisionResource {
-//    @Inject
-//    @Channel("stream-approvaldecision")
-//    Publisher<JsonNode> approvalDecisionEvents;
+    @Inject
+    @Channel("stream-approvaldecision")
+    Publisher<JsonNode> approvalDecisionEvents;
 
-    @Channel("approvaldecision")
-    Multi<JsonNode> approvalDecisionEvents;
+//    @Channel("approvaldecision")
+//    Multi<JsonNode> approvalDecisionEvents;
 
 
     @GET
     @Path("/stream")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
-    public Multi<JsonNode> streamFinalOrderDecision() {
-        return approvalDecisionEvents;
+    public Publisher<JsonNode> streamFinalOrderDecision() {
+        return Multi.createFrom().publisher(approvalDecisionEvents);
     }
 }
