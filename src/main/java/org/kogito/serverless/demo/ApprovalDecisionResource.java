@@ -16,9 +16,7 @@
 package org.kogito.serverless.demo;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.streams.operators.PublisherBuilder;
 import org.eclipse.microprofile.reactive.streams.operators.ReactiveStreams;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
@@ -32,10 +30,6 @@ public class ApprovalDecisionResource {
     @Inject
     @Channel("stream-approvaldecision")
     Publisher<JsonNode> approvalDecisionEvents;
-
-//    @Channel("approvaldecision")
-//    Multi<JsonNode> approvalDecisionEvents;
-
 
     @GET
     @Path("/stream")
