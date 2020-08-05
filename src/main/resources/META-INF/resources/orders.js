@@ -1,36 +1,26 @@
-var workflowsSource;
-var humandecisionsSource;
-var orderDecisionSource;
+$(document).ready(function() {
+    var host = window.location.host;
 
-$( window ).on( "load", function() {
-    workflowsSource = new EventSource("/workflows/stream");
-    workflowsSource.onmessage = function (event) {
-         addToWorkflowsTable(event.data);
+    var workflowSocket = new WebSocket("ws://" + host + "/processinstance/events");
+    workflowSocket.onmessage = function (event) {
+        addToWorkflowsTable(event.data);
     };
 
-    humandecisionsSource = new EventSource("/usertasks/stream");
-    humandecisionsSource.onmessage = function (event) {
-         addToHumanDecisionsTable(event.data);
-
-
-         var usertaskData = JSON.parse(event.data);
-         if (usertaskData.kogitoUserTaskinstanceState == 'Ready') {
-              addToManagerApprovalTable(event.data);
-         }
-
+    var humandecisionsSocket = new WebSocket("ws://" + host + "/usertasks/events");
+    humandecisionsSocket.onmessage = function (event) {
+        addToHumanDecisionsTable(event.data);
+        var usertaskData = JSON.parse(event.data);
+        if (usertaskData.kogitoUserTaskinstanceState == 'Ready') {
+             addToManagerApprovalTable(event.data);
+        }
     };
 
-    orderDecisionSource = new EventSource("/finalorders/stream");
-    orderDecisionSource.onmessage = function (event) {
-         addToOrderDecisionsTable(event.data);
+    var orderDecisionSocket = new WebSocket("ws://" + host + "/finaldecisions/events");
+    orderDecisionSocket.onmessage = function (event) {
+        addToOrderDecisionsTable(event.data);
     };
 });
 
-$(window).on('beforeunload', function() {
-    workflowsSource.close();
-    humandecisionsSource.close();
-    orderDecisionSource.close();
-});
 
 var workflowsTable = $('#workflowinstancestable').DataTable({ searching: false, paging: false, info: false });
 var counter = 1;

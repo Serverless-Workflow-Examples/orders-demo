@@ -79,6 +79,11 @@
             <artifactId>quarkus-smallrye-context-propagation</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow-websockets</artifactId>
+        </dependency>
+
         <!-- camel -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
