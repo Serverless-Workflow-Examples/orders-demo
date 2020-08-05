@@ -1,12 +1,12 @@
 $(document).ready(function() {
     var host = window.location.host;
 
-    var workflowSocket = new WebSocket("ws://" + host + "/processinstance/events");
+    var workflowSocket = new WebSocket("ws://" + host + "/demo/processinstance");
     workflowSocket.onmessage = function (event) {
         addToWorkflowsTable(event.data);
     };
 
-    var humandecisionsSocket = new WebSocket("ws://" + host + "/usertasks/events");
+    var humandecisionsSocket = new WebSocket("ws://" + host + "/demo/usertasks");
     humandecisionsSocket.onmessage = function (event) {
         addToHumanDecisionsTable(event.data);
         var usertaskData = JSON.parse(event.data);
@@ -15,7 +15,7 @@ $(document).ready(function() {
         }
     };
 
-    var orderDecisionSocket = new WebSocket("ws://" + host + "/finaldecisions/events");
+    var orderDecisionSocket = new WebSocket("ws://" + host + "/demo/finaldecisions");
     orderDecisionSocket.onmessage = function (event) {
         addToOrderDecisionsTable(event.data);
     };

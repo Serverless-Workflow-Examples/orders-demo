@@ -32,7 +32,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@ServerEndpoint("/processinstance/events")
+@ServerEndpoint("/demo/processinstances")
 @ApplicationScoped
 public class WorkflowEventsWebsocket {
     @Inject

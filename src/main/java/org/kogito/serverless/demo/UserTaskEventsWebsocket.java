@@ -32,7 +32,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@ServerEndpoint("/usertasks/events")
+@ServerEndpoint("/demo/usertasks")
 @ApplicationScoped
 public class UserTaskEventsWebsocket {
     @Inject

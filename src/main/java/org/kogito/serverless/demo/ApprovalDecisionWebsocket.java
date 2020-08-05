@@ -32,7 +32,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-@ServerEndpoint("/finaldecisions/events")
+@ServerEndpoint("/demo/finaldecisions")
 @ApplicationScoped
 public class ApprovalDecisionWebsocket {
     @Inject
