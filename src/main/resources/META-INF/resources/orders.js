@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var host = window.location.host;
 
-    var workflowSocket = new WebSocket("ws://" + host + "/demo/processinstance");
+    var workflowSocket = new WebSocket("ws://" + host + "/demo/processinstances");
     workflowSocket.onmessage = function (event) {
         addToWorkflowsTable(event.data);
     };
