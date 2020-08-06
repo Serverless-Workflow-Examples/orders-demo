@@ -5,17 +5,17 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
         <groupId>org.kie.kogito</groupId>
-        <artifactId>kogito-examples</artifactId>
-        <version>8.0.0-SNAPSHOT</version>
-    </parent>
+        <version>1.0.0-SNAPSHOT</version>
 
     <artifactId>serverless-workflow-kogito-orders-demo</artifactId>
 
     <name>Serverless Workflow Kogito Orders Demo</name>
     <description>Serverless Workflow Kogito Orders Demo</description>
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
         <version.camel.quarkus>1.0.0-CR3</version.camel.quarkus>
     </properties>
 
@@ -176,6 +176,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
+		<version>1.6.0.Final</version>
                 <executions>
                     <execution>
                         <goals>
@@ -195,6 +196,7 @@
                     <plugin>
                         <groupId>io.quarkus</groupId>
                         <artifactId>quarkus-maven-plugin</artifactId>
+		        <version>1.6.0.Final</version>
                         <executions>
                             <execution>
                                 <goals>
